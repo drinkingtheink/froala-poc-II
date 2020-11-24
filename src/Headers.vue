@@ -12,6 +12,22 @@
     <button v-on:click="reportSelection" class="select-button">Use</button>
     <Headers03 />
   </div>
+  <div class="header-select markup-select">
+    <button v-on:click="reportSelection" class="select-button">Use</button>
+    <Headers06 />
+  </div>
+  <div class="header-select markup-select">
+    <button v-on:click="reportSelection" class="select-button">Use</button>
+    <Headers14 />
+  </div>
+  <div class="header-select markup-select">
+    <button v-on:click="reportSelection" class="select-button">Use</button>
+    <Headers15 />
+  </div>
+  <div class="header-select markup-select">
+    <button v-on:click="reportSelection" class="select-button">Use</button>
+    <Headers16 />
+  </div>
 </div>
 </template>
 
@@ -82,11 +98,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss" scoped>
-.header-select-stage {
-  header .selected {
-    border: 2px solid green;
-  }
-}
-</style>

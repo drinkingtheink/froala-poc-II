@@ -126,7 +126,7 @@ export default {
 
 .markup-select {
   padding: 5px;
-  background-color: rgba(0,0,0,0.3);
+  background-color: #333;
   display: flex;
 
   button {
@@ -141,9 +141,10 @@ export default {
 
   header {
     width: 100%;
+    border: 4px solid #333;
 
     &.selected {
-      border: 2px solid green;
+      border-color: Chartreuse;
     }
   }
 }
@@ -169,6 +170,10 @@ export default {
       opacity: 1;
     }
 
+    &.active {
+      border-color: rgba(Chartreuse, 0.7);
+    }
+
     i {
       padding-right: 1rem;
       margin-top: 1rem;
@@ -177,8 +182,18 @@ export default {
     &.active {
       i {
       color: green;
+      }
     }
   }
+}
+
+.edit-toggle {
+  border: none;
+  background-color: #333;
+  padding: .25rem 1rem;
+
+  i {
+    color: white;
   }
 }
 
