@@ -4,15 +4,40 @@
     <div class="container bg-r py-5" style="background-image: url(imgs/shapes/1.svg);">
       <div class="row justify-content-start">
         <div class="col-12 col-sm-10 col-md-8 text-center text-sm-left">
-          <h1>Froala Design Blocks</h1>
-          <p class="lead">Over 170 responsive design blocks ready to be used in your web or mobile apps. All blocks are based on the Bootstrap Library, and they are the building blocks for beautiful websites.</p>
-          <p class="mt-4">
-            <a class="btn btn-dark mr-3 mr-sm-0" href="https://github.com/froala/design-blocks"><i class="fab fa-github"></i> Github Docs</a>
-            <a class="btn btn-primary ml-sm-3 mr-3 mr-sm-0 mt-3 mt-sm-0" href="https://froala.com/design-blocks#playground">Official Website</a>
-          </p>
+          <h1>UDP by Okta</h1>
+          <p class="lead">Generate a quick mock up of a digital experience tailored to you, with identity managed by Okta.</p>
         </div>
       </div>
     </div>
+
+    <section class="steps-display">
+          <div class="step step-1" :class="{ active: headerFound }">
+            <i v-if="headerFound" class="fas fa-check"></i>
+            <i v-else class="far fa-question-circle"></i>
+            <div>
+              <h3>Step 1</h3>
+              <p>Choose a header</p>
+            </div>
+          </div>
+        
+          <div class="step step-2" :class="{ active: bodyFound }">
+            <i v-if="bodyFound" class="fas fa-check"></i>
+            <i v-else class="far fa-question-circle"></i>
+            <div>
+              <h3>Step 2</h3>
+              <p>Choose body content</p>
+            </div>
+          </div>
+        
+          <div class="step step-3" :class="{ active: footerFound }">
+            <i v-if="footerFound" class="fas fa-check"></i>
+            <i v-else class="far fa-question-circle"></i>
+            <div>
+              <h3>Step 3</h3>
+              <p>Choose a footer</p>
+            </div>
+          </div>
+        </section>
   </section>
 
   <section class="fdb-block p-2" id="navigator">
@@ -23,16 +48,16 @@
         </button>
         <div class="collapse navbar-collapse mt-2 mt-md-0" id="navbarNav0">
           <nav class="m-auto">
+            <router-link to="/headers" class="btn btn-outline-primary m-1">Headers</router-link>
             <router-link to="/call-to-action" class="btn btn-outline-primary m-1">Call To Action</router-link>
             <router-link to="/contacts" class="btn btn-outline-primary m-1">Contacts</router-link>
             <router-link to="/contents" class="btn btn-outline-primary m-1">Contents</router-link>
             <router-link to="/features" class="btn btn-outline-primary m-1">Features</router-link>
-            <router-link to="/footers" class="btn btn-outline-primary m-1">Footers</router-link>
             <router-link to="/forms" class="btn btn-outline-primary m-1">Forms</router-link>
-            <router-link to="/headers" class="btn btn-outline-primary m-1">Headers</router-link>
             <router-link to="/pricings" class="btn btn-outline-primary m-1">Pricings</router-link>
             <router-link to="/teams" class="btn btn-outline-primary m-1">Teams</router-link>
             <router-link to="/testimonials" class="btn btn-outline-primary m-1">Testimonials</router-link>
+            <router-link to="/footers" class="btn btn-outline-primary m-1">Footers</router-link>
           </nav>
         </div>
       </nav>
@@ -41,9 +66,38 @@
 
   <!-- route outlet -->
   <!-- component matched by the route will render here -->
-  <router-view></router-view>
+  <router-view @newHeaderMarkup="updateHeaderMarkup"></router-view>
 </div>
 </template>
+
+<script>
+export default {
+  name: 'App',
+  data() {
+    return {
+      headerMarkup: null,
+      bodyMarkup: null,
+      footerMarkup: null
+    }
+  },
+  computed: {
+    headerFound() {
+      return !!this.headerMarkup;
+    },
+    bodyFound() {
+      return !!this.bodyMarkup;
+    },
+    footerFound() {
+      return !!this.footerMarkup;
+    }
+  },
+  methods: {
+    updateHeaderMarkup(markup) {
+      this.headerMarkup = markup;
+    }
+  }
+};
+</script>
 
 <style lang="scss">
 #navigator {
@@ -68,6 +122,64 @@
 
 #navigator + section {
   padding: 250px 0;
+}
+
+.markup-select {
+  padding: 5px;
+  background-color: rgba(0,0,0,0.3);
+  display: flex;
+
+  button {
+    width: 5rem;
+    border-radius: 5px;
+    margin-right: .5rem;
+
+    &:hover {
+      cursor:pointer;
+    }
+  }
+
+  header {
+    width: 100%;
+
+    &.selected {
+      border: 2px solid green;
+    }
+  }
+}
+
+.steps-display {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 120%;
+  text-transform: uppercase;
+
+  .step {
+    opacity: 0.7;
+    transition: all .2s;
+    padding: 1rem;
+    display: flex;
+    border-radius: 10px;
+    border: 2px solid rgba(0,0,0,0.1);
+    margin-right: .5rem;
+
+    &:hover,
+    &.active {
+      opacity: 1;
+    }
+
+    i {
+      padding-right: 1rem;
+      margin-top: 1rem;
+    }
+
+    &.active {
+      i {
+      color: green;
+    }
+  }
+  }
 }
 
 $fa-font-path : "~@fortawesome/fontawesome-free-webfonts/webfonts";

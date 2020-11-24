@@ -1,25 +1,17 @@
 <template>
-<div>
-  <Headers01 />
-  <Headers02 />
-  <Headers03 />
-  <Headers04 />
-  <Headers05 />
-  <Headers06 />
-  <Headers07 />
-  <Headers08 />
-  <Headers09 />
-  <Headers10 />
-  <Headers11 />
-  <Headers12 />
-  <Headers13 />
-  <Headers14 />
-  <Headers15 />
-  <Headers16 />
-  <Headers17 />
-  <Headers18 />
-  <Headers19 />
-  <Headers20 />
+<div class="header-select-stage">
+  <div class="header-select markup-select">
+    <button v-on:click="reportSelection" class="select-button">Use</button>
+    <Headers01 />
+  </div>
+  <div class="header-select markup-select">
+    <button v-on:click="reportSelection" class="select-button">Use</button>
+    <Headers02 />
+  </div>
+  <div class="header-select markup-select">
+    <button v-on:click="reportSelection" class="select-button">Use</button>
+    <Headers03 />
+  </div>
 </div>
 </template>
 
@@ -46,6 +38,7 @@ import Headers19 from './components/headers/Headers19.vue';
 import Headers20 from './components/headers/Headers20.vue';
 
 export default {
+  name: 'HeaderSelect',
   components: {
     Headers01,
     Headers02,
@@ -67,6 +60,33 @@ export default {
     Headers18,
     Headers19,
     Headers20
+  },
+  data() {
+    return {
+      pendingMarkup: null
+    }
+  },
+  watch: {
+    pendingMarkup: function (markup) {
+      this.pendingMarkup = markup;
+      this.$emit('newHeaderMarkup', markup);
+    }
+  },
+  methods: {
+    reportSelection(event) {
+      let sibling = event.target;
+      let closestHeader = sibling.nextSibling;
+      closestHeader.classList.add('selected');
+      this.pendingMarkup = closestHeader.outerHTML;
+    }
+  }
+};
+</script>
+
+<style lang="scss" scoped>
+.header-select-stage {
+  header .selected {
+    border: 2px solid green;
   }
 }
-</script>
+</style>
